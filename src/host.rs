@@ -23,19 +23,19 @@ pub enum ChannelLimit {
     /// Maximum limit on the number of channels
     Maximum,
     /// Channel limit
-    Limited(enet_sys::size_t),
+    Limited(usize),
 }
 
 impl ChannelLimit {
-    pub(in crate) fn to_enet_val(self) -> enet_sys::size_t {
+    pub(in crate) fn to_enet_val(self) -> usize {
         match self {
             ChannelLimit::Maximum => 0,
             ChannelLimit::Limited(l) => l,
         }
     }
 
-    fn from_enet_val(enet_val: enet_sys::size_t) -> ChannelLimit {
-        const MAX_COUNT: enet_sys::size_t = ENET_PROTOCOL_MAXIMUM_CHANNEL_COUNT as enet_sys::size_t;
+    fn from_enet_val(enet_val: usize) -> ChannelLimit {
+        const MAX_COUNT: usize = ENET_PROTOCOL_MAXIMUM_CHANNEL_COUNT as usize;
         match enet_val {
             MAX_COUNT => ChannelLimit::Maximum,
             0 => panic!("ChannelLimit::from_enet_usize: got 0"),
@@ -128,7 +128,7 @@ impl<T> Host<T> {
     }
 
     /// Returns the number of peers allocated for this `Host`.
-    pub fn peer_count(&self) -> enet_sys::size_t {
+    pub fn peer_count(&self) -> usize {
         unsafe { (*self.inner).peerCount }
     }
 
@@ -262,7 +262,7 @@ impl<T> Host<T> {
     pub fn connect(
         &mut self,
         address: &Address,
-        channel_count: enet_sys::size_t,
+        channel_count: usize,
         user_data: u32,
     ) -> Result<(&mut Peer<T>, PeerID), Error> {
         let res: *mut ENetPeer = unsafe {

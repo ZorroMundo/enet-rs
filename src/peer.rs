@@ -83,7 +83,7 @@ where
     }
 
     /// Returns the amout of channels allocated for this `Peer`.
-    pub fn channel_count(&self) -> enet_sys::size_t {
+    pub fn channel_count(&self) -> usize {
         self.inner.channelCount
     }
 

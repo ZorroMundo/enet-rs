@@ -23,8 +23,9 @@ exclude = [
 maintenance = { status = "passively-maintained" }
 
 [dependencies]
-enet-sys = "1.0.0"
+enet-sys = "1.0.4"
 thiserror = "1.0.30"
+lazy_static = "1.4.0"
 
 [dev-dependencies]
 anyhow = "1.0.56"
